@@ -1,13 +1,16 @@
 FROM node:20
 
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-COPY package*.json ./
+RUN git clone https://github.com/hexlet-components/js-fastify-blog.git .
 
+COPY package*.json ./
 RUN npm ci
 
 COPY . .
 
-EXPOSE 3080
+EXPOSE 3000
 
 CMD ["npm", "start"]
